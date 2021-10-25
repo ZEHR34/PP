@@ -1,11 +1,11 @@
 from flask import Flask
+from models import *
 
 app = Flask(__name__)
 
 
-@app.route("/api/v1/hello-world-1")
-def task():
-    return "hello yura"
 
 if __name__ == "__main__":
-    app.run()
+    Base.metadata.create_all(engine)
+
+

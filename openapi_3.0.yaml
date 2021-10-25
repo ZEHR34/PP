@@ -1,0 +1,327 @@
+openapi: 3.0.1
+info:
+  title: Calender
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  version: 1.0.0
+servers:
+- url: //localhost/
+tags:
+- name: user
+- name: event
+- name: relations
+paths:
+  /user:
+    get:
+      tags:
+      - user
+      summary: get user id
+      operationId: getUserId
+      requestBody:
+        content:
+          '*/*':
+            schema:
+              $ref: '#/components/schemas/UserNoId'
+        required: true
+      responses:
+        200:
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
+                properties:
+                  eventID:
+                    type: integer
+                    format: int64
+        400:
+          description: not OK
+          content: {}
+      x-codegen-request-body-name: user
+    post:
+      tags:
+      - user
+      summary: Add a new user
+      operationId: addUser
+      requestBody:
+        content:
+          '*/*':
+            schema:
+              $ref: '#/components/schemas/UserNoId'
+        required: true
+      responses:
+        200:
+          description: OK
+          content: {}
+        400:
+          description: not OK
+          content: {}
+      x-codegen-request-body-name: user
+  /user/{userId}:
+    delete:
+      tags:
+      - user
+      summary: Remove user by Id
+      operationId: removeUser
+      parameters:
+      - name: userId
+        in: path
+        required: true
+        schema:
+          type: integer
+      responses:
+        200:
+          description: OK
+          content: {}
+        400:
+          description: not OK
+          content: {}
+    patch:
+      tags:
+      - user
+      summary: patch user data
+      operationId: updateUser
+      parameters:
+      - name: userId
+        in: path
+        required: true
+        schema:
+          type: integer
+      requestBody:
+        content:
+          '*/*':
+            schema:
+              $ref: '#/components/schemas/UserNoId'
+        required: false
+      responses:
+        200:
+          description: OK
+          content: {}
+        400:
+          description: not OK
+          content: {}
+      x-codegen-request-body-name: body
+  /event:
+    get:
+      tags:
+      - event
+      summary: get event id
+      operationId: getEventId
+      requestBody:
+        content:
+          '*/*':
+            schema:
+              $ref: '#/components/schemas/EventNoId'
+        required: true
+      responses:
+        200:
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
+                properties:
+                  eventID:
+                    type: integer
+                    format: int64
+        400:
+          description: not OK
+          content: {}
+      x-codegen-request-body-name: user
+    post:
+      tags:
+      - event
+      summary: Add a new event
+      operationId: createEvent
+      requestBody:
+        content:
+          '*/*':
+            schema:
+              $ref: '#/components/schemas/EventNoId'
+        required: true
+      responses:
+        200:
+          description: OK
+          content: {}
+        400:
+          description: not OK
+          content: {}
+      x-codegen-request-body-name: event
+  /event/{eventId}:
+    delete:
+      tags:
+      - event
+      summary: Remove an existing event
+      operationId: removeEvent
+      parameters:
+      - name: eventId
+        in: path
+        required: true
+        schema:
+          type: integer
+      responses:
+        200:
+          description: OK
+          content: {}
+        400:
+          description: not OK
+          content: {}
+    patch:
+      tags:
+      - event
+      summary: Update an existing event
+      operationId: updateEvent
+      parameters:
+      - name: eventId
+        in: path
+        required: true
+        schema:
+          type: integer
+      requestBody:
+        content:
+          '*/*':
+            schema:
+              $ref: '#/components/schemas/EventNoId'
+        required: false
+      responses:
+        200:
+          description: OK
+          content: {}
+        400:
+          description: not OK
+          content: {}
+      x-codegen-request-body-name: body
+  /event/{eventId}/user/{userId}:
+    post:
+      tags:
+      - relations
+      summary: Add user to event.
+      operationId: AddUserToEvent
+      parameters:
+      - name: userId
+        in: path
+        required: true
+        schema:
+          type: integer
+      - name: eventId
+        in: path
+        required: true
+        schema:
+          type: integer
+      responses:
+        200:
+          description: OK
+          content: {}
+        400:
+          description: not OK
+          content: {}
+  /event/{eventId}/users/:
+    get:
+      tags:
+      - relations
+      summary: Get users in event.
+      operationId: GetUsersInEvent
+      parameters:
+      - name: eventId
+        in: path
+        required: true
+        schema:
+          type: integer
+      responses:
+        200:
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/User'
+  /your_events/user/{userId}:
+    get:
+      tags:
+      - relations
+      summary: Get user's event.
+      operationId: GetUsersEvent
+      parameters:
+      - name: userId
+        in: path
+        required: true
+        schema:
+          type: integer
+      responses:
+        200:
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Event'
+        400:
+          description: not OK
+          content: {}
+  /events/user/{userId}:
+    get:
+      tags:
+      - relations
+      summary: Get event for user.
+      operationId: GetEventWithUser
+      parameters:
+      - name: userId
+        in: path
+        required: true
+        schema:
+          type: integer
+      responses:
+        200:
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Event'
+        400:
+          description: not OK
+          content: {}
+components:
+  schemas:
+    UserNoId:
+      type: object
+      properties:
+        username:
+          type: string
+        firstName:
+          type: string
+        lastName:
+          type: string
+    User:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        username:
+          type: string
+        firstName:
+          type: string
+        lastName:
+          type: string
+    EventNoId:
+      type: object
+      properties:
+        name:
+          type: string
+        date:
+          type: string
+    Event:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        name:
+          type: string
+        date:
+          type: string

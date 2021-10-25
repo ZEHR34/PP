@@ -5,7 +5,7 @@ from sqlalchemy import pool
 
 from alembic import context
 
-from models import BaseModel
+from models import Base
 
 import sys
 sys.path.append(r"C:\Users\Vlad\PycharmProjects\PP")
@@ -21,7 +21,7 @@ fileConfig(config.config_file_name)
 
 
 
-target_metadata = BaseModel.metadata
+target_metadata = Base.metadata
 
 # other values from the config, defined by the needs of env.py,
 # can be acquired:

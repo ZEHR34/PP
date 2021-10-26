@@ -24,14 +24,14 @@ class User(Base):
     __tablename__ = "User"
 
     id = Column(Integer(), primary_key=True)
-    username = Column(VARCHAR(100), nullable=False)
-    firstName = Column(VARCHAR(100), nullable=False)
-    lastName = Column(VARCHAR(100), nullable=False)
-    email = Column(VARCHAR(100), nullable=True)
-    password = Column(VARCHAR(100), nullable=False)
-    phone = Column(VARCHAR(100), nullable=True)
+    username = Column(String(100), nullable=False)
+    firstName = Column(String(100), nullable=False)
+    lastName = Column(String(100), nullable=False)
+    email = Column(String(100), nullable=True)
+    password = Column(String(100), nullable=False)
+    phone = Column(String(100), nullable=True)
 
-    Wallet = relationship("wallet", backref="owner")
+    Wallet = relationship("Wallet", backref="owner")
 
 
 
@@ -42,7 +42,7 @@ class Wallet(Base):
     privacy = Column(Boolean(), default=False)
     owner_id = Column(Integer(), ForeignKey(User.id), nullable=False)
     value  = Column(Integer(), nullable=False)
-    transactions = relationship("Transaction",backref="Wallet")
+
 
 
 class Transaction(Base):

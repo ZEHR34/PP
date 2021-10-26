@@ -50,5 +50,5 @@ class Transaction(Base):
 
     id = Column(Integer(), primary_key=True)
     value  = Column(Integer(), nullable=False)
-    sender_id = Column(Integer(), ForeignKey(Wallet.id), nullable=False)
+    sender_id = Column(Integer(), ForeignKey(Wallet.id) , nullable=False)
     recipient_id = Column(Integer(), ForeignKey(Wallet.id), nullable=False)

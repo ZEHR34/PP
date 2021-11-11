@@ -1,0 +1,27 @@
+USER:
+curl -i http://127.0.0.1:5000/user -d '{"username": "niclias11", "firstName": "dima", "lastName": "loh", "email": "123@gmial.com", "password": "12341322", "phone": "0383424234"}' -H "Content-Type: application/json" -X POST
+curl -i http://127.0.0.1:5000/user/1 -X GET
+curl -i http://127.0.0.1:5000/user/niclias1 -X GET
+curl -i http://127.0.0.1:5000/user/24 -d '{"username": "niclias9"}' -H "Content-Type: application/json" -X PUT
+curl -i http://127.0.0.1:5000/user/1 -X DELETE
+
+
+WALLET
+curl -i http://127.0.0.1:5000/wallet -d '{"privacy": 0, "value": 200, "owner_id": 24}' -H "Content-Type: application/json" -X POST
+curl -i http://127.0.0.1:5000/wallet/1 -X GET
+curl -i http://127.0.0.1:5000/wallet/12 -d '{"privacy": true}' -H "Content-Type: application/json" -X PUT
+curl -i http://127.0.0.1:5000/wallet/1 -X DELETE
+
+
+TRANSACTION:
+curl -i http://127.0.0.1:5000/transaction -d '{"value": 70, "sender_id": 13, "recipient_id": 12}' -H "Content-Type: application/json" -X POST
+curl -i http://127.0.0.1:5000/transaction/1 -X GET
+curl -i http://127.0.0.1:5000/transaction/2 -d '{"value": 9999999}' -H "Content-Type: application/json" -X PUT
+curl -i http://127.0.0.1:5000/transaction/1 -X DELETE
+
+ARRAY
+curl -i http://127.0.0.1:5000/user/22/wallets -X GET
+curl -i http://127.0.0.1:5000/wallet/1/senders -X GET
+curl -i http://127.0.0.1:5000/wallet/1/recipienters -X GET
+
+

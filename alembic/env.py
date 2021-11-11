@@ -6,6 +6,7 @@ from sqlalchemy import pool
 from alembic import context
 
 from models import Base
+from connection_string import connection_string
 
 import sys
 sys.path.append(r"C:\Users\Vlad\PycharmProjects\PP")
@@ -30,7 +31,7 @@ target_metadata = Base.metadata
 
 config.set_main_option(
     "sqlalchemy.url",
-    "mysql+mysqlconnector://root:stebelyura1337@localhost/pp_db"
+    connection_string
 )
 
 # other values from the config, defined by the needs of env.py,

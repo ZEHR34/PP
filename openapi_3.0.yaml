@@ -41,6 +41,14 @@ paths:
         schema:
           type: integer
       responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: integer
+                format: int32
+            
         "400":
           description: Invalid ID supplied
         "404":
@@ -145,13 +153,36 @@ paths:
       - EWallet:
         - write:wallet
         - read:wallet
-  /transaction:
+  /transaction/{transactionID}:
     get:
       tags:
       - transaction
       summary: Get transaction by ID
       operationId: getTransaction
+      parameters:
+      - name: transactionID
+        in: path
+        description: id of transaction 
+        required: true
+        explode: true
+        schema:
+          type: integer
+          format: int64
       responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Transaction'
+            application/xml:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Transaction'
+          
         "400":
           description: Invalid ID supplied
         "404":
@@ -159,7 +190,7 @@ paths:
         "405":
           description: Validation exception
 
-  /transaction/new:
+  /transaction:
     post:
       tags:
       - transaction
@@ -172,7 +203,7 @@ paths:
               type: array
               items:
                 $ref: '#/components/schemas/Transaction'
-        required: true
+        required: false
       responses:
         "200":
           description: successful operation

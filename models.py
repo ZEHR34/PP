@@ -8,8 +8,10 @@ from sqlalchemy.ext.declarative import declarative_base
 from datetime import datetime
 from sqlalchemy.types import Boolean
 from sqlalchemy.orm import relationship
+from connection_string import connection_string
+from marshmallow import Schema, fields, post_load
 
-engine = create_engine("mysql+mysqlconnector://root:stebelyura1337@localhost/pp_db")
+engine = create_engine(connection_string)
 engine.connect()
 
 SessionFactory = sessionmaker(bind=engine)
@@ -31,7 +33,7 @@ class User(Base):
     password = Column(String(100), nullable=False)
     phone = Column(String(100), nullable=True)
 
-    Wallet = relationship("Wallet", backref="owner")
+    wallets = relationship("Wallet", backref="owner")   
 
 
 
@@ -52,3 +54,6 @@ class Transaction(Base):
     value  = Column(Integer(), nullable=False)
     sender_id = Column(Integer(), ForeignKey(Wallet.id), nullable=False)
     recipient_id = Column(Integer(), ForeignKey(Wallet.id), nullable=False)
+
+    sender = relationship("Wallet", foreign_keys="Transaction.sender_id", backref="sended")
+    recipient = relationship("Wallet", foreign_keys="Transaction.recipient_id", backref="recipiented")

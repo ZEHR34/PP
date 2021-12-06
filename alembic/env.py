@@ -9,7 +9,7 @@ from models import Base
 from connection_string import connection_string
 
 import sys
-sys.path.append(r"C:\Users\Vlad\PycharmProjects\PP")
+sys.path.append(r"C:\Users\Pavlo\PycharmProjects\PP")
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.

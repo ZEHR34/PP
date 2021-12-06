@@ -1,1 +1,1 @@
-connection_string = "mysql+mysqlconnector://root:Hh985630010203@localhost/wallet"
+connection_string = "mysql+mysqlconnector://root:stebelyura1337@localhost/pp_db"

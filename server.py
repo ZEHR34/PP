@@ -1,23 +1,30 @@
 from flask import Flask, Response
+
+import connection_string
 from models import *
 from flask import jsonify
 import json
 from flask import make_response
 from flask import request
 from sqlalchemy.exc import IntegrityError
-from types import SimpleNamespace
 from flask_httpauth import HTTPBasicAuth
 from flask_bcrypt import Bcrypt
 
+from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
+app.config['SQLALCHEMY_DATABASE_URI'] = connection_string
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
+db = SQLAlchemy(app)
 auth = HTTPBasicAuth()
 bcrypt = Bcrypt(app)
+Session = db.session
 
 
 @auth.verify_password
 def verify_password(username, password):
-    user = Session.query(User).filter_by(username = username).first()
+    user = db.session.query(User).filter_by(username=username).first()
     if not user:
         return False
     if not bcrypt.check_password_hash(user.password.encode("utf-8"), password.encode("utf-8")):

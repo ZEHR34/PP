@@ -1,5 +1,5 @@
 USER:
-curl -i http://127.0.0.1:5000/user -d '{"username": "niclias11", "firstName": "dima", "lastName": "loh", "email": "123@gmial.com", "password": "12341322", "phone": "0383424234"}' -H "Content-Type: application/json" -X POST
+curl -i http://127.0.0.1:5000/user -d '{"username": "nic1", "firstName": "dima", "lastName": "loh", "email": "123@gmial.com", "password": "12341322", "phone": "0383424234"}' -H "Content-Type: application/json" -X POST
 curl -i http://127.0.0.1:5000/user/1 -X GET
 curl -i http://127.0.0.1:5000/user/niclias1 -X GET
 curl -i http://127.0.0.1:5000/user/24 -d '{"username": "niclias9"}' -H "Content-Type: application/json" -X PUT
